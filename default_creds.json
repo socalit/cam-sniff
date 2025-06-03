@@ -1,0 +1,20 @@
+{
+  "Hikvision": [
+    {"username": "admin", "password": "12345"},
+    {"username": "admin", "password": "admin"}
+  ],
+  "Dahua": [
+    {"username": "admin", "password": "admin"},
+    {"username": "888888", "password": "888888"}
+  ],
+  "TP-Link": [
+    {"username": "admin", "password": "admin"}
+  ],
+  "Axis": [
+    {"username": "root", "password": "pass"}
+  ],
+  "Foscam": [
+    {"username": "admin", "password": ""},
+    {"username": "admin", "password": "admin"}
+  ]
+}

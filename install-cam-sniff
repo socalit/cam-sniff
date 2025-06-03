@@ -1,0 +1,37 @@
+#!/bin/bash
+# install-cam-sniff.sh
+
+set -e
+
+# Ensure Python 3 is installed
+if ! command -v python3 &> /dev/null; then
+  echo "[!] Python3 is not installed. Please install it and re-run this script."
+  exit 1
+fi
+
+# Ensure pip is installed
+if ! python3 -m pip --version &> /dev/null; then
+  echo "[!] pip not found. Installing pip..."
+  curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3
+fi
+
+# Clone the repo if needed
+if [ ! -f "cam-sniff.py" ]; then
+  echo "[!] cam-sniff.py not found in current directory. Please run this from the cloned repository folder."
+  exit 1
+fi
+
+# Convert line endings if necessary
+sed -i 's/\r$//' cam-sniff.py
+chmod +x cam-sniff.py
+
+# Install requirements
+python3 -m pip install -r requirements.txt
+
+# Move script to /usr/local/bin for system-wide use
+sudo cp cam-sniff.py /usr/local/bin/cam-sniff
+
+# Confirm
+echo "[+] cam-sniff installed system-wide. Run with:"
+echo "    cam-sniff 192.168.1.0/24"
+exit 0
