@@ -7,16 +7,16 @@ import json
 import csv
 import concurrent.futures
 from base64 import b64encode
+import os
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+with open(os.path.join(SCRIPT_DIR, "default_creds.json"), "r") as f:
 
-# Load default credentials
-with open("default_creds.json", "r") as f:
     DEFAULT_CREDS = json.load(f)
 
 COMMON_PORTS = [80, 554, 8000, 8080, 8554]
 TIMEOUT = 3
 results = []
 
-# Optional Shodan API integration
 def shodan_lookup(ip, api_key):
     try:
         response = requests.get(f"https://api.shodan.io/shodan/host/{ip}?key={api_key}", timeout=TIMEOUT)
@@ -37,7 +37,6 @@ def check_camera(ip, shodan_key=None):
         except:
             continue
 
-    # HTTP banner grabbing
     for port in entry["ports"]:
         if port in [80, 8000, 8080]:
             try:
@@ -53,11 +52,9 @@ def check_camera(ip, shodan_key=None):
             except:
                 continue
 
-    # RTSP check
     if 554 in entry["ports"]:
         entry["stream"] = f"rtsp://{ip}:554/"
 
-    # Default credential check
     if entry["vendor"] and entry["vendor"] in DEFAULT_CREDS:
         creds = DEFAULT_CREDS[entry["vendor"]]
         for cred in creds:
@@ -70,7 +67,6 @@ def check_camera(ip, shodan_key=None):
             except:
                 continue
 
-    # Shodan enrichment
     if shodan_key:
         entry["shodan"] = shodan_lookup(ip, shodan_key)
 
