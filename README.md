@@ -2,6 +2,8 @@
 
 `cam-sniff` is a fast Python-based CLI tool that scans your network for unsecured or default-credential IP cameras. Works great on Linux or macOS. Ideal for IT pros, pentesters, and hotel/hospitality infrastructure audits.
 
+Built by socalit to perform security audits.
+
 ---
 
 ## Features
