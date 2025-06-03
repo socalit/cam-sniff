@@ -1,0 +1,7 @@
+# Base runtime requirements
+-r requirements.txt
+
+# Development + maintenance tools
+pytest
+flake8
+black
